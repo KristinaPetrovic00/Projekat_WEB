@@ -1,10 +1,6 @@
 import { Jelo } from "./Jelo.js";
 import { Tip } from "./Tip.js";
 import {Saveti} from "./Saveti.js";
-import { PodTip } from "./PodTip.js";
-import { Sastojak } from "./Sastojak.js";
-import { Pice } from "./Pice.js";
-import { JeloSastojak } from "./JeloSastojak.js";
 export class Kuvar{
 
     constructor(id,nazivKuvara,citat,logo) {

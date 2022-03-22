@@ -24,14 +24,6 @@ fetch("https://localhost:5001/Kuvar/PreuzmiKuvar")
                     glavniDivK.appendChild(divK);
 
                     divK.onclick=(ev)=>{
-                        let lRecepata=[];
-                        //OVO NE VALJA!!!
-                        /*kuvar.listaRecepata.forEach(obj=>{
-                            let j=new Jelo(obj.ID,obj.Naziv,obj.TipJela,obj.PodTipJela,obj.KratakOpis,obj.Vreme,obj.BrojPorcija,obj.PorcijaGram,obj.Postupak,
-                                obj.Serviranje,obj.Slozenost,obj.BezGlutena,obj.PreporucenoPice,obj.NutritivneVrednosti,obj.SavetZaJelo,obj.Video,obj.SlikaJela,obj.ListaSastojaka);
-                            lRecepata.push(j);
-                        });*/
-                        //ovo isto sucmurasto
                         var k=new Kuvar(kuvar.id,kuvar.nazivKuvara,kuvar.citat,kuvar.logo);
                         console.log(kuvar.nazivKuvara);
 

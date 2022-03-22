@@ -8,8 +8,6 @@ export class Jelo{
     {
         this.index=index;
         this.naziv=naziv;
-        //this.TipJela=TipJela;
-        //this.PodtipJela=PodTipJela;
         this.opis=opis;
         this.vreme=vreme;
         this.broj_porcija=broj_porcija;
@@ -18,14 +16,10 @@ export class Jelo{
         this.serviranje=serviranje;
         this.slozenost_jela=slozenost_jela;
         this.bez_glutena=bez_glutena;
-        //this.PreporucenoPice=PreporucenoPice;
-        //this.NutritivneVrednosti=NutritivneVrednosti;
         this.foreignKeyNV=foreignKeyNV;
         this.savet=savet;
         this.video=video;
         this.slika=slika;
-        //this.ListaSastojaka=ListaSastojaka;  //ne znam sta je sa ovim
-        //this.Kontejner=null;
         this.sastojci_svi=sastojci_svi;
     }
 
@@ -144,9 +138,6 @@ export class Jelo{
         lblSastojci.innerHTML="Sastojci:";
         divSastojci.appendChild(lblSastojci);
 
-        //var divLS=document.createElement("div");
-        
-        
         this.sastojci_svi.forEach(p=>
             {
             var divS=document.createElement("div");
@@ -260,13 +251,6 @@ export class Jelo{
         lblBrPorcija.innerHTML="broj porcija: "+this.broj_porcija;
         lblBrPorcija.className="LblBrojPorcija";
         divPojedinosti.appendChild(lblBrPorcija);
-        //???????????????????????????
-        /*var lblSlozenost=document.createElement("label");
-        lblSlozenost.innerHTML="slozenost: "+this.slozenost_jela;
-        lblSlozenost.className="LblSlozenost";
-        divPojedinosti.appendChild(lblSlozenost);
-        console.log(this.slozenost_jela);*/
-        //this.slozenost_jela.crtajSlozenost(divPojedinosti);
 
         var lblGramazaPorcije=document.createElement("label");
         lblGramazaPorcije.innerHTML="gramaza porcije: "+this.porcija_gram+" g";
@@ -417,7 +401,7 @@ export class Jelo{
         var tbxNazivJela=document.createElement("input");
         tbxNazivJela.className="TbxNazivJela";
         tbxNazivJela.type="text";
-        //tbxNazivJela.innerText=this.naziv;
+        tbxNazivJela.value=this.naziv;
         divNazivJela.appendChild(tbxNazivJela);
 
         var divTipJela=document.createElement("div");
@@ -504,6 +488,7 @@ export class Jelo{
        tbxVremeIzrade.type="number";
        tbxVremeIzrade.min="0";
        tbxVremeIzrade.max="120";
+       tbxVremeIzrade.value=this.vreme;
        divVremeIzrade.appendChild(tbxVremeIzrade);
 
        var divBrPorcija=document.createElement("div");
@@ -520,6 +505,7 @@ export class Jelo{
        tbxBrPorcija.type="number";
        tbxBrPorcija.min="1";
        tbxBrPorcija.max="16";
+       tbxBrPorcija.value=this.broj_porcija;
        divBrPorcija.appendChild(tbxBrPorcija);
 
        var divGrPorcije=document.createElement("div");
@@ -535,6 +521,7 @@ export class Jelo{
        tbxGrPorcije.className="TbxGrPorcije";
        tbxGrPorcije.type="number";
        tbxGrPorcije.min="1";
+       tbxGrPorcije.value=this.porcija_gram;
        divGrPorcije.appendChild(tbxGrPorcije);
 
        var divGluten=document.createElement("div");
@@ -630,6 +617,7 @@ export class Jelo{
        var tbxVideo=document.createElement("input");
        tbxVideo.type="text";
        tbxVideo.className="TbxVideo";
+       tbxVideo.value=this.video;
        divVideo.appendChild(tbxVideo);
 
        var divSlika=document.createElement("div");
@@ -644,6 +632,7 @@ export class Jelo{
        var tbxSlika=document.createElement("input");
        tbxSlika.type="text";
        tbxSlika.className="TbxSlika";
+       tbxSlika.value=this.slika;
        divSlika.appendChild(tbxSlika);
 
        var divServiranje=document.createElement("div");
@@ -658,6 +647,7 @@ export class Jelo{
        var txtServiranje=document.createElement("input");
        txtServiranje.type="text";
        txtServiranje.className="TxtServiranje";
+       txtServiranje.value=this.serviranje;
        divServiranje.appendChild(txtServiranje);
 
         //DESNI DEO

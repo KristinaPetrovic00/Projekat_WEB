@@ -152,7 +152,7 @@ export class Saveti{
 
         var txbNaslovSaveta=document.createElement("input");
         txbNaslovSaveta.type="text";
-        //txbNaslovSaveta.innerHTML=this.naslov;
+        txbNaslovSaveta.value=this.naslov;
         txbNaslovSaveta.className="TbxNaslovSaveta";
         divNaslovSaveta.appendChild(txbNaslovSaveta);
 
@@ -186,6 +186,7 @@ export class Saveti{
         var txbSlikaSaveta=document.createElement("input");
         txbSlikaSaveta.type="text";
         //txbSlikaSaveta.innerHTML=this.slika;
+        txbSlikaSaveta.value=this.slika;
         txbSlikaSaveta.className="TbxSlikaSaveta";
         divSlikaSaveta.appendChild(txbSlikaSaveta);
 

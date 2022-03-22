@@ -292,8 +292,6 @@ namespace Projekat_WEB.Controllers
             return BadRequest(e.Message);
         }
     }
-     //nemam potrebu za delete operacijom u ovom slucaju
-     //napravljena za svaki slucaj
      [Route("IzbrisiNutritivneVrednosti/{idNV}")]
      [HttpDelete]
      public async Task<ActionResult> IzbrisiNutritivneVrednosti(int idNV)

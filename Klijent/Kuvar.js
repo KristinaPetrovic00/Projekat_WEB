@@ -851,7 +851,6 @@ export class Kuvar{
                 })
             })
         })
-        //var listared=["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"];
         var i=0;
         btnDugmeDodaj.onclick=(ev)=>{
 
@@ -864,12 +863,6 @@ export class Kuvar{
                     divSastojciIzbor.removeChild(divSastojciIzbor.firstChild);
                 }
             }
-             
-            /*var roditelj=divSastojciIzbor.parentNode;
-            roditelj.removeChild(divSastojciIzbor);
-            var divSastojciIzbor=document.createElement("div");
-            divSastojciIzbor.className="DivSastojciIzbor";
-            roditelj.appendChild(divSastojciIzbor);*/
 
             listaBtn.forEach(b=>{
                 var divsas=document.createElement("div");
@@ -1638,7 +1631,6 @@ export class Kuvar{
                 jela.forEach(jelo=>{
                     var obj=new Jelo(jelo.index,jelo.naziv,jelo.opis,jelo.vreme,jelo.broj_porcija,jelo.porcija_gram,jelo.postupak,
                         jelo.serviranje,jelo.slozenost_jela,jelo.bez_glutena,jelo.foreignKeyNV,jelo.savet,jelo.video,jelo.slika,jelo.sastojci_svi);
-                        //listaJelaTipa.push(obj);
                         if(k%4==0){
                         
                         divRed=document.createElement("div");
@@ -1684,11 +1676,11 @@ export class Kuvar{
         var k=0;
         fetch("https://localhost:5001/Jelo/PreuzmiTipJela/"+this.id+"/"+idtip)
         .then(p=>{
+            if(p.ok){
             p.json().then(jela=>{
                 jela.forEach(jelo=>{
                     var obj=new Jelo(jelo.index,jelo.naziv,jelo.opis,jelo.vreme,jelo.broj_porcija,jelo.porcija_gram,jelo.postupak,
                         jelo.serviranje,jelo.slozenost_jela,jelo.bez_glutena,jelo.foreignKeyNV,jelo.savet,jelo.video,jelo.slika,jelo.sastojci_svi);
-                        //listaJelaTipa.push(obj);
                         if(k%4==0){
                         
                         divRed=document.createElement("div");
@@ -1703,6 +1695,11 @@ export class Kuvar{
                         k++;
                  })
              })
+            }
+            else{
+                alert("Nema recepata trazenog tipa!");
+                this.crtajInicijalniCentar(host,divPromena);
+            }
          })
         
         
@@ -1731,11 +1728,11 @@ crtajReceptePodTip(host, podtipid)
     var k=0;
     fetch("https://localhost:5001/Jelo/PreuzmiPodtip/"+this.id+"/"+podtipid)
     .then(p=>{
+        if(p.ok){
         p.json().then(jela=>{
             jela.forEach(jelo=>{
                 var obj=new Jelo(jelo.index,jelo.naziv,jelo.opis,jelo.vreme,jelo.broj_porcija,jelo.porcija_gram,jelo.postupak,
                     jelo.serviranje,jelo.slozenost_jela,jelo.bez_glutena,jelo.foreignKeyNV,jelo.savet,jelo.video,jelo.slika,jelo.sastojci_svi);
-                    //listaJelaTipa.push(obj);
                     if(k%4==0){
                     
                     divRed=document.createElement("div");
@@ -1750,6 +1747,11 @@ crtajReceptePodTip(host, podtipid)
                     k++;
              })
          })
+        }
+        else{
+            alert("Nema recepata trazenog podtipa!");
+            this.crtajInicijalniCentar(host,divPromena);
+        }
         })
     
 }
@@ -1818,6 +1820,7 @@ crtajSavete(host){
     var k=0;
     fetch("https://localhost:5001/Jelo/PreuzmiJelaBezGlutena/"+this.id)
     .then(p=>{
+        if(p.ok){
         p.json().then(jela=>{
             jela.forEach(jelo=>{
                 var obj=new Jelo(jelo.index,jelo.naziv,jelo.opis,jelo.vreme,jelo.broj_porcija,jelo.porcija_gram,jelo.postupak,
@@ -1837,6 +1840,11 @@ crtajSavete(host){
                     k++;
              })
          })
+        }
+        else{
+            alert("Nema rezultata!");
+            this.crtajInicijalniCentar(host,divPromena);
+        }
         })
 
 
@@ -1877,6 +1885,7 @@ crtajSavete(host){
     var divRed;
         fetch("https://localhost:5001/Jelo/PreuzmiJeloVremeSlozenost/"+this.id+"/"+tip+"/"+vreme+"/"+slozenost)
         .then(p=>{
+            if(p.ok){
             p.json().then(jela=>{
                 jela.forEach(jelo=>{
                     var obj=new Jelo(jelo.index,jelo.naziv,jelo.opis,jelo.vreme,jelo.broj_porcija,jelo.porcija_gram,jelo.postupak,
@@ -1896,6 +1905,11 @@ crtajSavete(host){
                         k++;
                  })
              })
+            }
+            else{
+                alert("Nema recepata odredjenog tipa, vremena i slozenosti!");
+                this.crtajInicijalniCentar(host,divPromena);
+            }
             })
             var pom=this.Kontejner.querySelector(".TxbVreme1").value="";
             var sel=this.Kontejner.querySelector(".SelectTip1").selectedIndex=0;
@@ -1932,6 +1946,7 @@ crtajSavete(host){
         var divRed;
         fetch("https://localhost:5001/Jelo/PreuzmiJeloBrojPorcija/"+this.id+"/"+opTip+"/"+brPor)
         .then(p=>{
+            if(p.ok){
             p.json().then(jela=>{
                 jela.forEach(jelo=>{
                     var obj=new Jelo(jelo.index,jelo.naziv,jelo.opis,jelo.vreme,jelo.broj_porcija,jelo.porcija_gram,jelo.postupak,
@@ -1951,6 +1966,11 @@ crtajSavete(host){
                         k++;
                  })
              })
+            }
+            else{
+                alert("Nema recepata odredjenog tipa i broja porcija!");
+                this.crtajInicijalniCentar(host,divPromena);
+            }
             })
             var pom=this.Kontejner.querySelector(".TxbBrPorcija2").value="";
             var sel=this.Kontejner.querySelector(".SelectTip2").selectedIndex=0;

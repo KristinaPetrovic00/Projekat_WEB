@@ -40,13 +40,7 @@ namespace Projekat_WEB.Controllers
             var jelaTipa=await recepti
             .Where(p=>p.Kuvar.ID==IdKuvara)
             .Where(p=>podtipovi.Contains(p.PodTip)).ToListAsync();
-           /* List<JeloSastojak> a=new List<JeloSastojak>();
-
-            jelaTipa.ForEach(p=>
-            {
-                a=p.ListaSastojaka;
-            });
-return BadRequest(a);*/
+        
             try{
             if(jelaTipa.Count==0)
             return BadRequest("Jela trazenog tipa ne postoje");
@@ -793,6 +787,27 @@ return BadRequest(a);*/
         public async Task<ActionResult> DodajRecept(int idKuvara,string ulaznistr,int idPodtip,int idSlozenost,int idPica,
         string NutrVr,string NutrProc,string NutrObj,string Sastojci,string Kolicina, string Jedinica)
         { 
+            if(string.IsNullOrEmpty(ulaznistr)){
+                return BadRequest("Nedostaju ulazni podaci!");
+            }
+            if(string.IsNullOrEmpty(NutrVr)){
+                return BadRequest("Nedostaju nutritivne vrednosti!");
+            }
+            if(string.IsNullOrEmpty(NutrProc)){
+                return BadRequest("Nedostaju nutritivni procenti!");
+            }
+            if(string.IsNullOrEmpty(NutrObj)){
+                return BadRequest("Nedostaju objasnjenja nutritivnih vrednosti!");
+            }
+            if(string.IsNullOrEmpty(Sastojci)){
+                return BadRequest("Nedostaju sastojci!");
+            }
+            if(string.IsNullOrEmpty(Kolicina)){
+                return BadRequest("Nedostaje kolicina za sastojke!");
+            }
+            if(string.IsNullOrEmpty(Jedinica)){
+                return BadRequest("Nedostaje jedinica za sastojak!");
+            }
             try
         {
             var podaciJ=ulaznistr.Split('{')
@@ -801,7 +816,7 @@ return BadRequest(a);*/
             bool gluten=true;
             int vreme=0,brporcija=0,gramaza=0;
             int k=0;
-            //podaciJ.ForEach(p=>
+            
             for(k=0;k<podaciJ.Count;k++){
                 switch(k){
                     case 0: naziv=podaciJ[k];
@@ -829,7 +844,6 @@ return BadRequest(a);*/
                     break;
 
                      case 8: slika=podaciJ[k];
-                     //return BadRequest(slika);
                     break;
 
                     case 9: serviranje=podaciJ[k];
@@ -839,18 +853,14 @@ return BadRequest(a);*/
                     break;
                     
                 }
-            }//);
-            //return BadRequest(opis+" "+podaciJ[1]+" "+savet+" "+podaciJ[6]+" "+video+" "+podaciJ[7]);
+            }
             var kuvar=await Context.Kuvar.Where(p=>p.ID==idKuvara).FirstAsync();
-            //return BadRequest(kuvar);
-            var podtip=await Context.PodTipovi.Where(p=>p.ID==idPodtip).FirstAsync();
-            //return BadRequest(kuvar);
-            var slozenost=await Context.Slozenost.Where(p=>p.ID==idSlozenost).FirstAsync();
-            //return BadRequest(slozenost);
-            var pice=await Context.Pica.Where(p=>p.ID==idPica).FirstAsync();//da li su null
-            //return BadRequest(pice);
             
-               
+            var podtip=await Context.PodTipovi.Where(p=>p.ID==idPodtip).FirstAsync();
+            
+            var slozenost=await Context.Slozenost.Where(p=>p.ID==idSlozenost).FirstAsync();
+            
+            var pice=await Context.Pica.Where(p=>p.ID==idPica).FirstAsync();
 
             var nutrvr=NutrVr.Split('{')
             .Where(x=>int.TryParse(x,out _))
@@ -879,9 +889,6 @@ return BadRequest(a);*/
             .Select(int.Parse)
             .ToList();
 
-           // return Ok(jedinica);
-            ////////////////////////////////////////////////////
-            //int r=0;
             var nutrVr=new NutritivneVrednosti{
                Kalorije=nutrvr[0],
                KalorijeProcenti=nutrproc[0],
@@ -967,6 +974,28 @@ return BadRequest(a);*/
         public async Task<ActionResult> IzmeniRecept(int idKuvara,int idRecepta,string ulaznistr,int idPodtip,int idSlozenost,int idPica,
         string NutrVr,string NutrProc,string NutrObj,string Sastojci,string Kolicina, string Jedinica)
         { 
+            
+            if(string.IsNullOrEmpty(ulaznistr)){
+                return BadRequest("Nedostaju ulazni podaci!");
+            }
+            if(string.IsNullOrEmpty(NutrVr)){
+                return BadRequest("Nedostaju nutritivne vrednosti!");
+            }
+            if(string.IsNullOrEmpty(NutrProc)){
+                return BadRequest("Nedostaju nutritivni procenti!");
+            }
+            if(string.IsNullOrEmpty(NutrObj)){
+                return BadRequest("Nedostaju objasnjenja nutritivnih vrednosti!");
+            }
+            if(string.IsNullOrEmpty(Sastojci)){
+                return BadRequest("Nedostaju sastojci!");
+            }
+            if(string.IsNullOrEmpty(Kolicina)){
+                return BadRequest("Nedostaje kolicina za sastojke!");
+            }
+            if(string.IsNullOrEmpty(Jedinica)){
+                return BadRequest("Nedostaje jedinica za sastojak!");
+            }
             try
         {
             var podaciJ=ulaznistr.Split('{')
@@ -1097,7 +1126,7 @@ return BadRequest(a);*/
             jelo.SlikaJela=slika;
 
             Context.Jela.Update(jelo);
-            //da li treba da obrisem sve ove prethodne sastojke
+            
             var izbrisiSastojke=await Context.JelaSastojci.Where(p=>p.Jelo.ID==idRecepta).ToListAsync();
             izbrisiSastojke.ForEach(p=>{
                 Context.JelaSastojci.Remove(p);
@@ -1144,6 +1173,8 @@ return BadRequest(a);*/
             {
                 var jelo=Context.Jela.Where(p=>p.Kuvar.ID==IdKuvara)
                                      .Where(p=>p.Naziv==naziv).FirstOrDefault();
+                
+                var nutrvr=await Context.NutritivneVrednosti.Where(p=>p.ID==jelo.ForeignKeyNV).FirstAsync();
 
                 var stavke=await Context.JelaSastojci.Include(p=>p.Jelo)
                                                      .Where(p=>p.Jelo==jelo).ToListAsync();
@@ -1153,7 +1184,8 @@ return BadRequest(a);*/
                         Context.Remove(stavke[i]);
                     }
                     string ime=jelo.Naziv;
-                    Context.Jela.Remove(jelo); //iz modela
+                    Context.NutritivneVrednosti.Remove(nutrvr);
+                    Context.Jela.Remove(jelo);
                     await Context.SaveChangesAsync();
                     return Ok($"Uspesno obrisan recept sa nazivom: {ime}");
                 }

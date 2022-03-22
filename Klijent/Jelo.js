@@ -920,6 +920,16 @@ export class Jelo{
         var ulaznistr=nazivJela+"{"+opis+"{"+vreme+"{"+brporcija+"{"+gramaza+"{"+g+"{"+savet+"{"
         +video+"{"+slika+"{"+serviranje+"{"+postupak; 
         console.log(ulaznistr);
+        console.log(this.index);
+        console.log(podtip);
+        console.log(s);
+        console.log(pice);
+        console.log(NutrVr);
+        console.log(NutrProc);
+        console.log(NutrObj);
+        console.log(Sastojci);
+        console.log(Kolicina);
+        console.log(Jedinica);
         fetch("https://localhost:5001/Jelo/IzmeniRecept/"+idkuvar+"/"+this.index+"/"+ulaznistr+"/"+podtip+"/"+s+"/"+pice+"/"+NutrVr+"/"+NutrProc+"/"+NutrObj+"/"+Sastojci+"/"+Kolicina+"/"+Jedinica,
         {method:"PUT"})
         .then(j=>{
